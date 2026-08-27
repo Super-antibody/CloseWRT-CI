@@ -1,0 +1,42 @@
+name: WMA301 V2 - CloseWRT Custom
+
+on:
+  workflow_dispatch:
+    inputs:
+      PACKAGE:
+        description: "额外/覆盖软件包配置，每行一个 CONFIG_...=y/n"
+        required: false
+        type: string
+        default: ""
+      TEST:
+        description: "只生成并上传最终 .config，不编译固件"
+        required: false
+        type: boolean
+        default: true
+      WRT_WORD:
+        description: "默认 Wi-Fi 密码（至少 8 位；编译后也可修改）"
+        required: true
+        type: string
+        default: "12345678"
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  wma301v2:
+    uses: ./.github/workflows/WRT-CORE.yml
+    with:
+      WRT_CONFIG: WMA301V2
+      WRT_THEME: aurora
+      WRT_NAME: WMA301V2-CWRT
+      WRT_SSID: WMA301-CWRT
+      WRT_WORD: ${{ inputs.WRT_WORD }}
+      WRT_IP: 192.168.10.1
+      WRT_PW: "无"
+      WRT_REPO: https://github.com/Yuzhii0718/immortalwrt-mt798x-6.6-padavanonly.git
+      WRT_BRANCH: openwrt-24.10-6.6
+      WRT_SOURCE: Yuzhii0718/immortalwrt-mt798x-6.6-padavanonly
+      WRT_PACKAGE: ${{ inputs.PACKAGE }}
+      WRT_TEST: ${{ inputs.TEST }}
+    secrets: inherit

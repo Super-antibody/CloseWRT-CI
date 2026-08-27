@@ -1,0 +1,37 @@
+# WMA301 V2 128MB - CloseWRT custom build
+# Base: VIKINGYFY/CloseWRT-CI + Yuzhii0718 immortalwrt-mt798x-6.6-padavanonly
+# IMPORTANT: WMA301 V2 uses the base tplink_wma301 profile here.
+# Do NOT select tplink_wma301-256m, tplink_wma301-v2-1, or any ubootmod profile.
+
+CONFIG_TARGET_mediatek=y
+CONFIG_TARGET_mediatek_filogic=y
+CONFIG_TARGET_DEVICE_mediatek_filogic_DEVICE_tplink_wma301=y
+
+# MT7981 closed-source MTK stack (also reinforced by GENERAL.txt)
+CONFIG_first_card_name="MT7981"
+CONFIG_MTK_CHIP_MT7981=y
+CONFIG_MTK_CONNINFRA_APSOC_MT7981=y
+CONFIG_MTK_FIRST_IF_MT7981=y
+CONFIG_MTK_MT7981_NEW_FW=n
+CONFIG_WARP_CHIPSET="mt7981"
+CONFIG_WARP_NEW_FW=n
+
+# Keep the main proxy stack
+CONFIG_PACKAGE_luci-app-homeproxy=y
+
+# Keep MTK acceleration / Wi-Fi management
+CONFIG_PACKAGE_luci-app-eqos-mtk=y
+CONFIG_PACKAGE_luci-app-mtwifi-cfg=y
+CONFIG_PACKAGE_luci-app-turboacc-mtk=y
+
+# Remove bulky/non-essential packages from the generic GENERAL profile.
+# They can be re-enabled later if desired.
+CONFIG_PACKAGE_luci-app-gecoosac=n
+CONFIG_PACKAGE_luci-app-mini-diskmanager=n
+CONFIG_PACKAGE_luci-app-partexp=n
+CONFIG_PACKAGE_luci-app-samba4=n
+CONFIG_PACKAGE_luci-app-upnp=n
+CONFIG_PACKAGE_luci-app-wolultra=n
+CONFIG_PACKAGE_luci-app-autoreboot=n
+
+# Do not change NAND/UBI/rootfs sizing here until the first build is inspected.

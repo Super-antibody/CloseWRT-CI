@@ -12,7 +12,7 @@ on:
         description: "只生成并上传最终 .config，不编译固件"
         required: false
         type: boolean
-        default: true
+        default: false
       WRT_WORD:
         description: "默认 Wi-Fi 密码（至少 8 位；编译后也可修改）"
         required: true
